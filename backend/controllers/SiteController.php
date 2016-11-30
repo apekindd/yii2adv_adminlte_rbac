@@ -12,6 +12,7 @@ use common\models\LoginForm;
  */
 class SiteController extends Controller
 {
+    public $layout;
     /**
      * @inheritdoc
      */
@@ -46,6 +47,9 @@ class SiteController extends Controller
      */
     public function actions()
     {
+        if(Yii::$app->errorHandler->exception->statusCode == 404){
+            $this->layout = '404';
+        }
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
