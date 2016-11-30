@@ -5,9 +5,7 @@
             [
                 'options' => ['class' => 'sidebar-menu'],
                 'items' => [
-                    ['label' => 'Пользователи', 'icon' => 'fa fa-dashboard', 'url' => ['/user']],
-                    ['label' => 'Роли', 'icon' => 'fa fa-file-code-o', 'url' => ['/permit/access/role']],
-                    ['label' => 'Права', 'icon' => 'fa fa-dashboard', 'url' => ['/permit/access/permission ']],
+                    ['label' => 'Пользователи', 'icon' => 'fa fa-users', 'url' => ['/user']],
                     ['label' => 'Выход', 'icon' => 'fa fa-plug', 'url' => ['/site/logout']],
 
                 ],

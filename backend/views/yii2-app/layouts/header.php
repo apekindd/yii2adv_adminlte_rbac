@@ -14,5 +14,15 @@ use yii\helpers\Html;
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
         </a>
+        <ul class="nav navbar-nav" style="float:right">
+            <li class="dropdown" >
+        <?php echo Html::beginForm(['/site/logout'], 'post')
+        . Html::submitButton(
+        'Logout (' . Yii::$app->user->identity->username . ')',
+        ['class' => 'btn btn-link logout']
+        )
+        . Html::endForm()?>
+                    </li>
+            </ul>
     </nav>
 </header>
