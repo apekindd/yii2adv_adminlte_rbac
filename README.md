@@ -13,3 +13,7 @@ php init
 yii migrate
 ```
 
+rbac
+```
+php yii migrate --migrationPath=@yii/rbac/migrations/
+```
