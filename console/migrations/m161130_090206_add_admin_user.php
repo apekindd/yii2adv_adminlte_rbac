@@ -2,7 +2,7 @@
 
 use yii\db\Migration;
 
-class m161130_090206_add_admin_role extends Migration
+class m161130_090206_add_admin_user extends Migration
 {
     public function up()
     {
