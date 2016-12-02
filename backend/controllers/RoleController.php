@@ -91,12 +91,7 @@ class RoleController extends AppController
             $postPerm = Yii::$app->request->post("Perm");
             //check for delete
             foreach ($hisPerms as $perm){
-                if(! $postPerm){
-                    $conn = AuthItemChild::find()->where(['=','child',$perm])->andWhere(['=','parent', $model->oldAttributes['name']])->one();
-                    if($conn) {
-                        $conn->delete();
-                    }
-                }elseif(!$postPerm[$perm]){
+                if(!$postPerm[$perm]){
                     $conn = AuthItemChild::find()->where(['=','child',$perm])->andWhere(['=','parent', $model->oldAttributes['name']])->one();
                     if($conn) {
                         $conn->delete();

@@ -12,8 +12,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permission-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->name], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->name], [
@@ -29,12 +27,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'name',
-            'type',
+            //'type',
             'description:ntext',
-            'rule_name',
-            'data:ntext',
-            'created_at',
-            'updated_at',
+            //'rule_name',
+            //'data:ntext',
+            [
+                'attribute' => 'created_ad',
+                'value' => date('d.m.Y',$model->created_at)
+            ],
+            [
+                'attribute' => 'updated_at',
+                'value' => date('d.m.Y',$model->updated_at)
+            ],
+            //'created_at',
+            //'updated_at',
         ],
     ]) ?>
 

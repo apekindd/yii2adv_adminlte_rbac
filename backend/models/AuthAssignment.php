@@ -32,7 +32,7 @@ class AuthAssignment extends \yii\db\ActiveRecord
             [['item_name', 'user_id'], 'required'],
             [['created_at'], 'integer'],
             [['item_name', 'user_id'], 'string', 'max' => 64],
-            [['item_name'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::className(), 'targetAttribute' => ['item_name' => 'name']],
+            [['item_name'], 'exist', 'skipOnError' => true, 'targetClass' => Role::className(), 'targetAttribute' => ['item_name' => 'name']],
         ];
     }
 
@@ -53,6 +53,6 @@ class AuthAssignment extends \yii\db\ActiveRecord
      */
     public function getItemName()
     {
-        return $this->hasOne(AuthItem::className(), ['name' => 'item_name']);
+        return $this->hasOne(Role::className(), ['name' => 'item_name']);
     }
 }
