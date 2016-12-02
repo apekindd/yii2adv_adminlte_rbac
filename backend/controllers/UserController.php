@@ -82,9 +82,11 @@ class UserController extends AppController
 
         if ($model->load(Yii::$app->request->post())) {
             $cu = new CommonUser();
-            $model->status = 10;
-            $cu->setPassword($model->password_hash);
-            $model->password_hash = $cu->password_hash;
+            $model->status = $cu::STATUS_ACTIVE;
+            if($model->oldAttributes['password_hash'] !== $model->password_hash){
+                $cu->setPassword($model->password_hash);
+                $model->password_hash = $cu->password_hash;
+            }
             unset($cu);
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->id]);
