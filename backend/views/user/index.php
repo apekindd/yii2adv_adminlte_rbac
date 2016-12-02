@@ -11,7 +11,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
@@ -27,6 +26,22 @@ $this->params['breadcrumbs'][] = $this->title;
             //'password_hash',
             //'password_reset_token',
              'email:email',
+            [
+                'attribute'=>'Roles',
+                'value' => function($model){
+                    $res = "";
+                    foreach($model->getRoles($model->id) as $role){
+                        if($role['checked'] === 1){
+                            $res .= $role['role']."<br/>";
+                        }
+                    }
+                    if($res == ''){
+                        $res = " - ";
+                    }
+                    return $res;
+                },
+                'format'=>'html'
+            ],
             // 'status',
             // 'created_at',
             // 'updated_at',

@@ -5,6 +5,8 @@ namespace backend\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
+use backend\models\AuthAssignment;
+use yii\rbac\Item;
 
 
 /**
@@ -30,6 +32,27 @@ class User extends \yii\db\ActiveRecord
         return 'user';
     }
 
+    public function getRoles($id=false){
+        if(!$id) {
+            $id = (int)Yii::$app->request->get('id');
+        }
+        $roles = Role::find()->where(['=','type',Item::TYPE_ROLE])->asArray()->indexBy('name')->all();
+        $res = [];
+        $hisRoles = [];
+        if($id > 0){
+            $hisRoles = AuthAssignment::find()->where(['=','user_id', $id])->asArray()->indexBy('item_name')->all();
+        }
+        foreach($roles as $name=>$role){
+            $res[$name]['role'] = $name;
+            if($hisRoles[$name]){
+                $res[$name]['checked'] = 1;
+            }else{
+                $res[$name]['checked'] = 0;
+            }
+        }
+        return $res;
+    }
+
     public function behaviors()
     {
         return [
@@ -37,7 +60,7 @@ class User extends \yii\db\ActiveRecord
                 'class' => TimestampBehavior::className(),
                 'createdAtAttribute' => 'created_at',
                 'updatedAtAttribute' => 'updated_at',
-                'value' => new Expression('NOW()'),
+                'value' => time(),
             ],
         ];
     }

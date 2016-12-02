@@ -24,7 +24,6 @@ class AppController extends Controller
                         'allow' => true,
                     ],
                     [
-
                         'allow' => false,
                         'roles' => ['?'],
                     ],
@@ -41,5 +40,15 @@ class AppController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function init()
+    {
+        $res = $this->behaviors();
+        if(!isset($res['access'])){
+            echo "Для контроллера <b>".self::className()."</b> в поведении не прописант access, добавьте правила доступа, либо удалите его совсем, чтобы поведение унаследовалось от <b>AppController</b>.";
+            exit;
+        }
+        parent::init(); // Call parent implementation;
     }
 }

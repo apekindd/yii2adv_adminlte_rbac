@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\AuthAssignment;
 use Yii;
 use backend\models\User;
 use common\models\User as CommonUser;
@@ -23,6 +24,7 @@ class UserController extends AppController
      */
     public function actionIndex()
     {
+
         $dataProvider = new ActiveDataProvider([
             'query' => User::find(),
         ]);
@@ -52,14 +54,24 @@ class UserController extends AppController
     public function actionCreate()
     {
         $model = new User();
-
         if ($model->load(Yii::$app->request->post())) {
             $cu = new CommonUser();
-            $model->status = 10;
+            $model->status = $cu::STATUS_ACTIVE;
             $cu->setPassword($model->password_hash);
             $model->password_hash = $cu->password_hash;
             unset($cu);
             if($model->save()){
+                //add roles
+                $postRole = Yii::$app->request->post("Role");
+                if($postRole) {
+                    foreach ($postRole as $role) {
+                        $new = new AuthAssignment();
+                        $new->user_id = "".$model->id;
+                        $new->item_name = $role;
+                        $new->created_at = time();
+                        $new->save();
+                    }
+                }
                 return $this->redirect(['view', 'id' => $model->id]);
             }
 
@@ -81,6 +93,31 @@ class UserController extends AppController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
+
+            $hisRoles = AuthAssignment::find()->where(['=','user_id', $model->id])->asArray()->indexBy('item_name')->all();
+            $postRole = Yii::$app->request->post("Role");
+            //check for delete
+            foreach ($hisRoles as $role=>$arr){
+                if(!$postRole[$role]){
+                    $r = AuthAssignment::find()->where(['=','user_id',$model->id])->andWhere(['=','item_name', $role])->one();
+                    if($r) {
+                        $r->delete();
+                    }
+                }
+            }
+
+            //check for add
+            if($postRole){
+                foreach ($postRole as $role){
+                    if(!$hisRoles[$role]){
+                        $new = new AuthAssignment();
+                        $new->user_id = "".$model->id;
+                        $new->item_name = $role;
+                        $new->save();
+                    }
+                }
+            }
+
             $cu = new CommonUser();
             $model->status = $cu::STATUS_ACTIVE;
             if($model->oldAttributes['password_hash'] !== $model->password_hash){

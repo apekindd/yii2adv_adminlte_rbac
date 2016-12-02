@@ -28,6 +28,14 @@ use yii\widgets\ActiveForm;
 
     <?php // $form->field($model, 'updated_at')->textInput() ?>
 
+    <?php
+    echo "Роли:<br/>";
+    foreach ($model->roles as $role){?>
+        <input type="checkbox" <?= ($role['checked'] === 1) ? "checked" : "" ?> name="Role[<?= $role['role'] ?>]" value="<?= $role['role'] ?>" /> <b><?= $role['role'] ?></b><br/>
+        <?php
+    }
+    ?>
+<br/>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
