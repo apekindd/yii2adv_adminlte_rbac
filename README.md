@@ -1,4 +1,4 @@
-Yii 2 Advanced Project Template
+Yii 2 Advanced with AdminLTE and rbac
 ===============================
 ```
 composer self-update
@@ -16,4 +16,8 @@ yii migrate
 rbac
 ```
 php yii migrate --migrationPath=@yii/rbac/migrations/
+```
+How to use
+```
+Yii::$app->user->can('nameOfPermission')
 ```
