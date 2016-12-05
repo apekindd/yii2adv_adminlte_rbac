@@ -113,6 +113,7 @@ class UserController extends AppController
                         $new = new AuthAssignment();
                         $new->user_id = "".$model->id;
                         $new->item_name = $role;
+                        $new->created_at = time();
                         $new->save();
                     }
                 }

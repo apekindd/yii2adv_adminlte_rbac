@@ -45,4 +45,14 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <?php
+    echo "Права:<br/>";
+    $children = \yii\helpers\ArrayHelper::map($model->children, "name", "name");
+    foreach ($model->perms as $perm){
+        if($children[$perm->name] === $perm->name){
+            echo "<p><b>".$perm->name."</b></p><br/>";
+        }
+    }
+    ?>
+
 </div>

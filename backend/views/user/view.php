@@ -48,4 +48,13 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <?php
+    echo "Роли:<br/>";
+    foreach ($model->roles as $role){
+        if($role['checked'] === 1){
+            echo "<p><b>".$role['role']."</b></p><br/>";
+        }
+    }
+    ?>
+
 </div>
