@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
     $children = \yii\helpers\ArrayHelper::map($model->children, "name", "name");
     foreach ($model->perms as $perm){
         if($children[$perm->name] === $perm->name){
-            echo "<p><b>".$perm->name."</b></p><br/>";
+            echo "<p><b>".$perm->name."</b></p>";
         }
     }
     ?>
