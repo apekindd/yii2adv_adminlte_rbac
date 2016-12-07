@@ -24,6 +24,10 @@ use yii\rbac\Item;
  */
 class User extends \yii\db\ActiveRecord
 {
+
+    public  $password;
+    public  $password_repeat;
+
     /**
      * @inheritdoc
      */
@@ -78,6 +82,8 @@ class User extends \yii\db\ActiveRecord
             [['username'], 'unique'],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
+            [['password', 'password_repeat'], 'string', 'min' => 6],
+            ['password_repeat', 'compare', 'compareAttribute'=>'password', 'message'=>"Passwords don't match" ],
         ];
     }
 
@@ -96,6 +102,8 @@ class User extends \yii\db\ActiveRecord
             'status' => 'Status(0-deleted, 10-active)',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'password_repeat' => 'Подтверждение нового пароля',
+            'password' => 'Новый пароль',
         ];
     }
 }

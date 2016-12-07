@@ -57,8 +57,10 @@ class UserController extends AppController
         if ($model->load(Yii::$app->request->post())) {
             $cu = new CommonUser();
             $model->status = $cu::STATUS_ACTIVE;
-            $cu->setPassword($model->password_hash);
-            $model->password_hash = $cu->password_hash;
+            if(($model->password != '' && $model->password_repeat != '') && ($model->password === $model->password_repeat)){
+                $cu->setPassword($model->password);
+                $model->password_hash = $cu->password_hash;
+            }
             unset($cu);
             if($model->save()){
                 //add roles
@@ -121,8 +123,8 @@ class UserController extends AppController
 
             $cu = new CommonUser();
             $model->status = $cu::STATUS_ACTIVE;
-            if($model->oldAttributes['password_hash'] !== $model->password_hash){
-                $cu->setPassword($model->password_hash);
+            if(($model->password != '' && $model->password_repeat != '') && ($model->password === $model->password_repeat)){
+                $cu->setPassword($model->password);
                 $model->password_hash = $cu->password_hash;
             }
             unset($cu);
