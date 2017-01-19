@@ -2,7 +2,7 @@ Yii 2 Advanced with AdminLTE and rbac
 ===============================
 ```
 composer self-update
-composer update
+composer install
 ```
 
 ```
