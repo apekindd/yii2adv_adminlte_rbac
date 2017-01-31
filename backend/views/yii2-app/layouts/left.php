@@ -15,6 +15,7 @@
                             ['label' => 'Права', 'icon' => 'fa fa-key', 'url' => ['/permission']],
                         ],
                     ],
+                    ['label' => 'Настройки', 'icon' => 'fa fa-cog', 'url' => ['/settings']],
                     ['label' => 'Выход', 'icon' => 'fa fa-plug', 'url' => ['/site/logout']],
                 ],
             ]

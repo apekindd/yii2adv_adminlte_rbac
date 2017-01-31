@@ -13,6 +13,10 @@ return [
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
+        'cacheFrontend' => [
+            'class' => 'yii\caching\FileCache',
+            'cachePath' => Yii::getAlias('@frontend') . '/runtime/cache'
+        ],
         'as access' => [
             'class' => 'yii\filters\AccessControl',
             'rules' => [
