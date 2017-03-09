@@ -44,6 +44,15 @@ class AppController extends Controller
 
     public function init()
     {
+
+        $controllers = SettingsController::scanCotrollers();
+        if(!empty($controllers['danger'])){
+            $cnt=count($controllers['danger']);
+            $html = "Обнаружены критические ошибки, которые влияют на безопасность приложениея. Пройдите по <a href='".Url::to(['/settings','#'=>'dev'])."'>ссылке</a>, чтобы получить инструкции по их устранению. Количество ошибок  - <b>{$cnt}</b>";
+            \Yii::$app->session->setFlash('danger',$html);
+        }
+
+
         $res = $this->behaviors();
         if(!isset($res['access'])){
             echo "Для контроллера <b>".self::className()."</b> в поведении не прописант access, добавьте правила доступа, либо удалите его совсем, чтобы поведение унаследовалось от <b>AppController</b>.";

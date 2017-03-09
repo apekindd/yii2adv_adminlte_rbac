@@ -23,7 +23,7 @@ class SettingsController extends AppController
         }
     }
 
-    protected function scanCotrollers(){
+    public static function scanCotrollers(){
         $arResult['danger'] = [];
         $arResult['warning'] = [];
         $arResult['normal'] = [];
@@ -34,12 +34,17 @@ class SettingsController extends AppController
         ]);
         foreach($files as $file){
             $className = str_replace([__DIR__."\\",'.php'],'',$file);
+
+            $temp=explode('/',$className);
+            $className=$temp[count($temp)-1];
+
             if($className == 'AppController'){
                 continue;
             }
             $content = file_get_contents($file);
             preg_match('/extends([^&]*)\n{/', $content, $m);
             $m[1]=trim($m[1]);
+
 
             if($m[1] == 'Controller'){
                 $arResult['danger'][$className]['name'] = $className;

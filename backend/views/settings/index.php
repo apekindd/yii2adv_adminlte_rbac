@@ -66,3 +66,13 @@
     </div>
 </div>
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        if(window.location.hash == '#dev'){
+            $('.nav-tabs li,.tab-pane').removeClass('active');
+            $('a[href="#dev"], a[href="#danger"]').parent().addClass('active');
+            $('#dev, #danger').addClass('active');
+        }
+    });
+</script>
