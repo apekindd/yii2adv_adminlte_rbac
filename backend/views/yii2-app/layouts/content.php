@@ -5,7 +5,7 @@ use dmstr\widgets\Alert;
 ?>
 <div class="content-wrapper">
     <section class="content-header">
-        <?php if (isset($this->blocks['content-header'])) { ?>
+        <?php/* if (isset($this->blocks['content-header'])) { ?>
             <h1><?= $this->blocks['content-header'] ?></h1>
         <?php } else { ?>
             <h1>
@@ -19,22 +19,31 @@ use dmstr\widgets\Alert;
                     echo ($this->context->module->id !== \Yii::$app->id) ? '<small>Module</small>' : '';
                 } ?>
             </h1>
-        <?php } ?>
+        <?php } */?>
 
-        <?=
-        Breadcrumbs::widget(
-            [
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]
-        ) ?>
-    </section>
 
-    <section class="content">
-        <?= Alert::widget() ?>
-        <?= $content ?>
-    </section>
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-body table-responsive">
+                            <?=
+                            Breadcrumbs::widget(
+                                [
+                                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                                ]
+                            ) ?>
+                            <?= Alert::widget() ?>
+                            <?= $content ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
 </div>
 
+<?php/*
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
         <b>Version</b> 2.0
@@ -232,4 +241,4 @@ use dmstr\widgets\Alert;
 </aside><!-- /.control-sidebar -->
 <!-- Add the sidebar's background. This div must be placed
      immediately after the control sidebar -->
-<div class='control-sidebar-bg'></div>
+<div class='control-sidebar-bg'></div>*/?>
