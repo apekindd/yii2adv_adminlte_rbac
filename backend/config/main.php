@@ -12,6 +12,37 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [],
+    'as beforeRequest' => [
+        'class' => yii\filters\AccessControl::class,
+        'rules' => [
+            [
+                'actions' => ['login', 'error'],
+                'allow' => true,
+            ],
+            [
+                'allow' => false,
+                'roles' => ['?'],
+            ],
+            [
+                'allow' => true,
+                'roles' => ['@'],
+            ],
+        ],
+        'denyCallback' => function () {
+            /*if( ! Yii::$app->user->isGuest ) {
+                Yii::$app->user->logout();
+            }*/
+            //return Yii::$app->response->redirect(['site/access-denied']);
+            return Yii::$app->response->redirect(['site/login']);
+        },
+    ],
+    'on beforeRequest' => function () {
+        $pathInfo = Yii::$app->request->url;
+        if(strpos($pathInfo,"view?id=") !== false){
+            Yii::$app->response->redirect(dirname($pathInfo)."?sort=-id", 301);
+            Yii::$app->end();
+        }
+    },
     'components' => [
         'cacheFrontend' => [
             'class' => 'yii\caching\FileCache',
